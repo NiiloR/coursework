@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/materials">
+        <file>final_bus_liteN.json</file>
+        <file>full_stations_kkj3.json</file>
+        <file>kartta_iso_1095x592.png</file>
+        <file>kartta_pieni_500x500.png</file>
+    </qresource>
+</RCC>
