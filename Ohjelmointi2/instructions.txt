@@ -1,0 +1,95 @@
+TIE-0220 Kevät 2020
+GUI-projekti: Tetris
+Laatinut: Niilo Rannikko
+Op. nro: 268085
+Email: niilo.rannikko@tuni.fi
+
+KÄYTTÖOHJE
+
+Pelin tarkoituksena on asetella pelialueen ylälaitaan ilmestyviä erimuotoisia, 
+alareunaa kohti putoavia palikoita mahdollisimman tiiviisti, ennen kuin pelialue 
+täyttyy.
+
+Pelia alkaa painamalla Start-painiketta hiirellä, jolloin ensimmäinen kappale 
+ilmestyy pelialueelle ja lähtee putoamaan. Putoavaa kappaletta voi putoamisen 
+ajan liikutella vasemmalle ja oikealle käyttöliittymän näppäimilla "Move Left"
+ja "Move Right", sekä pudottaa kappaleen suoraan niin alas, kuin mahdollista
+"Drop" -näppäimellä.
+Kun kappale on pysähtynyt joko alalaitaan, tai toiseen kappaleeseen, sitä ei voi 
+enää liikutella.
+
+Uuden kappaleen saa luotua painamalla "Next shape" -painiketta.
+Pelin voi nollata ja palauttaa alkuasetelmaan "Reset" -napilla. Reset toimii vain, 
+kun alueella ei ole liikkuvia kappaleita.
+
+Peli päättyy, kun uusi palikka ei enää mahdu alueelle, jolloin uuden pelin voi 
+aloittaa painamalla Reset- ja sen jälkeen Start Game-painiketta.
+
+
+
+TOTEUTUKSESTA
+
+Toteutetut ominaisuudet:
+
+Minimivaatimukset:
+    - Pelialue on suorakulmion mallinen ja se on alussa tyhjä
+    - Pelissä on yhteensä 8 erilaista kappaletta (minimi 4)
+    - Putoava kappale valikoituu satunnaisesti
+    - Uusi kappale ilmestyy käyttöliittymän nappia painamalla
+    - Putoavia kappaleita voi liikutella sivusuunnassa,
+      pelialueen ja toisten kappaleiden rajoissa
+    - Kappale pysähtyy osuessaan pelialueen reunaan tai toiseen kappaleeseen
+    - Pelin päättymisestä seuraa ilmoitus käyttäjälle
+
+Toteutetut lisäominaisuudet:
+    - Pelissä on yhteensä 8 erilaista muotoa, jotka saavat satunnaisen värin
+      syntyessään
+    - Pelissä on reset-painike, jolla pelin voi asettaan alkutilanteeseen
+    - Putoavan kappaleen pystyy pudottamaan niin alas kuin mahdollista
+      käyttöliittymän "Drop" -painikkeella
+    
+Toteutusperiaate:
+
+Pelin pohjaideana on että ohjelmassa on kaksi vektoria, joihin varastoidaan pelilaudan
+laatikoita. Vektori moving_blocks_ sisältää pelilaudalla liikkeessä olevat neljä
+laatikkoa ja vektori blocks_on_board_ sisältää pelilaudalle jo pysähtyneet laatikot.
+
+Pelin kulkiessa, kun pelaaja painaa käyttöliittymän nappia luodakseen
+uuden tetrominon pelialueelle, ohjelman create_tetromino()-funktio arpoo ensin tulevan
+tetrominon värin ja sitten valittavien tetrominojen vektorista yhden neljän laatikon
+koordinaattisarjan, luo laatikon kerrallaan, siirtää sen oikealle paikalle, samalla
+tarkistaen, että paikalla on tilaa, tallentaa laatikot moving_blocks_ -vektoriin ja
+tämän jälkeen käynnistää ohjelman sisäisen kellon ja tekee tarvittavat muutokset
+käyttöliittymän nappeihin kutsumalla start_timer()-funktiota. Jos synnytetyn uuden
+laatikon paikalla on jo ennestään toinen laatikko, kutsutaan game_over() -funktiota,
+joka poistaa kaikki muut, paitsi Reset-nappulan käytöstä, tulostaa ilmoituksen asiasta
+ja näin lopettaa pelin. Jos uutta tetrominoa ei voida luoda kokonaan, create_tetromino
+palauttaa arvon false ja jos voi, niin arvon true. Näin on tehty ohjelman sisäisen kellon
+oikean toiminnan varmistamiseksi.
+
+Ohjelman sisäinen kello on sidottu laatikoita alas päin liikuttavaan funktioon.
+Tämä funktio move_tetromino_down() tarkistaa is_moving_ok()-funktion avulla, voiko
+kaikkia neljää laatikkoa siirtää pykälän alas päin. Jos voi, se siirtää laatikot ja
+jos ei voi, niin funktio poistaa laatikot moving_blocks_-vektorista ja tallentaa
+ne blocks_on_board_-vektoriin. Kun is_moving_ok()-funktiota kutsutaan, se käy
+läpi moving_blocks_ -vektorin ja tarkistaa voiko niitä kaikkia liikuttaa pykälän
+alas. Jos ei voi, se pysäyttää kellon ja paluttaa arvon "false" ja jos voi, se palauttaa
+arvon "true".
+
+Pelaaja voi liikutella putoavia tetrominoja käyttöliittymän näppäimillä "Move Left" ja
+"Move Right". Näppäinten takana on funktio, joka liikuttaa koko kappaletta, jos
+halutussa suunnassa on tilaa. Jos liikkumisen tiellä on pelialueen reuna tai pelilaudalla
+jo oleva kappale, niin ei tapahdu mitään. Pelaaja voi myös pudottaa kappaleen niin alas,
+kuin mahdollista Drop-painikkeella, jonka funktio tarkistaa is_moving_ok -funktion
+kanssa kuvion alla olevan tilan ja liikutta sitä pykälän, kunnes kappale saavuttaa
+pelialueen pohjan tai toisen kappaleen.
+
+Pelin aikana, kun pelialueella ei ole liikkuvia tetrominoja, käyttäjä voi palauttaa
+laudan alkutilanteeseen "Reset"-painikkeella. Painikkeen funktio tyhjentää pelialueen,
+poistaa alkiot vektoreista moving_blocks_ ja blocks_on_board_, sekä palauttaa
+alkutilanteen ohjetekstin tekstiruutuun.
+
+Pelin kulun aikana, vain tarpeelliset käyttöliittymän painikkeet ovat käytettävissä
+kussakin tilanteessa ja niiden säätely tapahtuu automaattisesti erityisesti pelin
+sisäisen kellon tilaan liittyen, sekä pelin erityistilanteissa, kuten pelin
+päättyminen ja resetointi.
