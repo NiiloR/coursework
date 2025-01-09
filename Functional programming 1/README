@@ -1,0 +1,9 @@
+This is a slightly modified version of an assignment done at course 
+Functional programming 1. The project was to make a small calendar proggram that 
+can save events given by the user and display information about those events,
+dates and places. All variables in user input have to be in single quotes to
+work correctly.
+Most base code given by the course are separated into Date_stuff module and can be 
+found in a separate file.
+To run the program in GHCI type "ghc --make Calendar.hs" to compile the program 
+and then "/.Calendar" to run it
