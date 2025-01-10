@@ -1,0 +1,97 @@
+# This is the docker-compose-yml file that must be able to start
+# your group's backend.
+
+# Remember to comment this file well!
+
+# After you have Docker and Docker Compose installed,
+# and this file is ready, you use this file and run it with:
+# `docker-compose up --build`
+
+version: "3"
+
+services:
+  server-a:
+    image: lihamylly/node-swagger:3a # Image name
+    restart: always # Restarts server always, useful if the database is not initialized yet when the server starts.
+    # Server-a needs rabbitmq and database.
+    depends_on:
+      - rabbitmq
+      - database
+    # Command which waits rabbitmq to initialize.
+    command: ["./utils/wait-for-it.sh", "rabbitmq:5672", "--",  "npm", "start"]
+    # Build options
+    build:
+      dockerfile: Dockerfile
+      context:  ./backend/server-a
+    # Environment variables needed.
+    environment:
+      - DB_HOST=database
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=orders
+      - DB_PORT=3306
+      - DIALECT=mysql
+      - MESSAGE_QUEUE=rabbitmq
+      - INPUT_QUEUE=task
+      - OUTPUT_QUEUE=sandwich
+    # Ports exposed
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    # Ports, first is the port for sending messages, second is for the management UI.
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+        - backend
+  client:
+    # Client needs server-a to work.
+    depends_on:
+      - server-a
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    # Client is accessed via port 3000
+    ports:
+      - 3000:3000
+    networks:
+      - frontend
+  server-b:
+    image: lihamylly/server-b
+    # Same as server-a
+    restart: always
+    # Needs rabbitmq to work.
+    depends_on:
+      - rabbitmq
+    # Command to wait until rabbitmq is initialized
+    command: ["./utils/wait-for-it.sh", "rabbitmq:5672", "--",  "npm", "start"]
+    build:
+        dockerfile: Dockerfile
+        context: ./backend/server-b
+    # Environment variables needed.
+    environment:
+      - MESSAGE_QUEUE=rabbitmq
+      - INPUT_QUEUE=sandwich
+      - OUTPUT_QUEUE=task
+    networks: 
+      - backend
+
+  database:
+    platform: linux/x86_64
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: orders
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    networks:
+      - backend
+networks:
+  backend:
+  frontend:
