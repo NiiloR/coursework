@@ -1,8 +1,7 @@
-import QtQuick 2.14
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.0
-import QtQuick.Controls.Styles 1.4
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+
 
 
 ApplicationWindow {
@@ -240,10 +239,12 @@ ApplicationWindow {
                 anchors.top: top_bar.top
                 anchors.topMargin: 10
 
-                Connections{
+                Connections {
                     target: saagia_view
-                    onLocationChanged: city.location = s
 
+                    function onLocationChanged(s) {
+                        city.location = s
+                    }
                 }
 
             }

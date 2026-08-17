@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Styles 1.4
+import QtQuick
+import QtQuick.Controls
+
 
 Rectangle {
     id: show_case
@@ -150,7 +150,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
 
                 color: "#ffffff"
-                text: saagia_view.active_data
+                text: saagia_view ? saagia_view.active_data : ""
                 font.pixelSize: 15
 
             }

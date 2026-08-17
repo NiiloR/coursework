@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.12
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
 
 Rectangle {
 
@@ -127,16 +127,16 @@ Rectangle {
 
                     maximumDate: new Date()
 
-                    onClicked: {
+                    function onClicked(date) {
 
-                        //const json = JSON.stringify(date);
+                        saagia_controller.set_the_selected_date(
+                            1,
+                            Qt.formatDateTime(date, "yyyy-MM-dd")
+                        )
 
-                        saagia_controller.set_the_selected_date(1, Qt.formatDateTime(date, "yyyy-MM-dd"))
-                        //saagia_controller.change_enddate(json);
                         calendarobject_1.close()
 
                         end_time.text = Qt.formatDateTime(date, "dd/MM/yyyy")
-
                     }
 
                 }

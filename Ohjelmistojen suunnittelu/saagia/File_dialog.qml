@@ -1,19 +1,13 @@
-import QtQuick 2.2
-import QtQuick.Dialogs 1.3
-import Qt.labs.platform 1.1
-import QtQuick.Window 2.2
-import QtQuick.Dialogs 1.0
+import QtQuick
+import QtQuick.Dialogs
 
 FileDialog {
-        id: loadDialog
-        nameFilters: "*.csv , *.txt"
-        selectMultiple: false
-        folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-        onAccepted: {
-            console.log("Opened data: send this forward to datareader!")
-            console.log(loadDialog.fileUrl)
-            saagia_controller.load_from_file(loadDialog.fileUrl)
-            // Tästä tieto eteenpäin databasehandlerille!
-        }
+    id: loadDialog
 
+    nameFilters: ["CSV files (*.csv)", "Text files (*.txt)"]
+
+    onAccepted: {
+        console.log(selectedFile)
+        saagia_controller.load_from_file(selectedFile)
     }
+}

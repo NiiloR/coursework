@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtCharts 2.3
-import QtQuick.Controls 2.0
+import QtQuick
+import QtCharts
+import QtQuick.Controls
 
 
 ChartView {
