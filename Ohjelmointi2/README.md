@@ -3,3 +3,7 @@
 This is the final GUI project of the course Programming 2 from spring 2020. The assignment was to make a classic TETRIS game with QtCreator's gui tools. 
 The game has different coloured shapes that can be moved to left and right in the game window. When a row is filled, that line gets removed and when a block cannot fit into the game window, 
 the game ends.
+
+![Image of the game](tetris.png)
+
+![Image of game over state](game_over.png)
