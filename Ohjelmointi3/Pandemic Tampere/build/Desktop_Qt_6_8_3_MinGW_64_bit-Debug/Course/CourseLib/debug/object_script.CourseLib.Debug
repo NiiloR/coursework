@@ -1,0 +1,13 @@
+debug/nysse.o
+debug/passenger.o
+debug/stop.o
+debug/location.o
+debug/logic.o
+debug/gameerror.o
+debug/initerror.o
+debug/simpleactoritem.o
+debug/simplemainwindow.o
+debug/offlinereader.o
+debug/qrc_offlinedata.o
+debug/moc_logic.o
+debug/moc_simplemainwindow.o

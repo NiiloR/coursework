@@ -1,0 +1,10 @@
+debug/bettermainwindow.o
+debug/city.o
+debug/dialog.o
+debug/gameengine.o
+debug/main.o
+debug/player.o
+debug/statistics.o
+debug/qrc_materials.o
+debug/moc_bettermainwindow.o
+debug/moc_dialog.o

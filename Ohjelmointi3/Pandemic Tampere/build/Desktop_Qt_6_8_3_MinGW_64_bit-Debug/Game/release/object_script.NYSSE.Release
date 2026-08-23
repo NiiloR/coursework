@@ -1,0 +1,10 @@
+release/bettermainwindow.o
+release/city.o
+release/dialog.o
+release/gameengine.o
+release/main.o
+release/player.o
+release/statistics.o
+release/qrc_materials.o
+release/moc_bettermainwindow.o
+release/moc_dialog.o

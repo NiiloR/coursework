@@ -1,0 +1,13 @@
+release/nysse.o
+release/passenger.o
+release/stop.o
+release/location.o
+release/logic.o
+release/gameerror.o
+release/initerror.o
+release/simpleactoritem.o
+release/simplemainwindow.o
+release/offlinereader.o
+release/qrc_offlinedata.o
+release/moc_logic.o
+release/moc_simplemainwindow.o
