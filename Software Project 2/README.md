@@ -27,4 +27,4 @@ Check out the GamiLiDAR research group: [GamiLiDAR](https://webpages.tuni.fi/gam
 
 ## Final Seminar Poster
 
-seminar_poster.pdf
+![poster](seminar_poster.pdf)
