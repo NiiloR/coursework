@@ -14,3 +14,6 @@ The prototype UFO shooting game is shown in the later part of the video.
 
 Check out GamiLiDAR gamification research group ![GamiLiDAR](https://webpages.tuni.fi/gamification/projects/gamilidar/) and how their work in forest scanning helps future data collection.
 
+
+## Final seminar poster
+![poster](seminar_poster.pdf)
